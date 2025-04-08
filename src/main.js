@@ -12,6 +12,8 @@ const router = createRouter({
     { path: "/teams", component: TeamsList },
     { path: "/users", component: UsersList },
   ],
+  linkActiveClass: "vue-active",
+  linkExactActiveClass: "vue-exact-active"
 });
 
 const app = createApp(App);
