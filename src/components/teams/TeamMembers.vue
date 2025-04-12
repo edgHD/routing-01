@@ -3,15 +3,17 @@
     <h2>{{ teamName }}</h2>
     <ul>
       <user-item
-        v-for="member in members"
-        :key="member.id"
-        :name="member.fullName"
-        :role="member.role"
-      ></user-item>
+      v-for="member in members"
+      :key="member.id"
+      :name="member.fullName"
+      :role="member.role">
+      </user-item>
+      <router-link to="/teams/t2">Back to Teams</router-link>
     </ul>
   </section>
   <section v-else>
     <h2>Team Not Found</h2>
+    <router-link to="/teams/t2">Back to Teams</router-link>
   </section>
 </template>
 
@@ -30,19 +32,28 @@ export default {
     };
   },
   created() {
-    const teamId = this.$route.params.teamId;
-    const selectedTeam = this.teams.find(team => team.id === teamId);
-    const members = selectedTeam ? selectedTeam.members : [];
-    const selectedMembers = [];
-    for (const member of members) {
-      const user = this.users.find(user => user.id === member);
-      if (user) {
-        selectedMembers.push(user);
+    this.loadTeamMembers(this.$route);
+  },
+  methods: {
+    loadTeamMembers(route) {
+      const teamId = this.$route.params.teamId;
+      const selectedTeam = this.teams.find(team => team.id === teamId);
+      const members = selectedTeam ? selectedTeam.members : [];
+      const selectedMembers = [];
+      for (const member of members) {
+        const user = this.users.find(user => user.id === member);
+        if (user) {
+          selectedMembers.push(user);
+        }
       }
+      this.members = selectedMembers;
+      this.teamName = selectedTeam ? selectedTeam.name : 'Team Not Found';
     }
-    this.members = selectedMembers;
-    this.teamName = selectedTeam ? selectedTeam.name : 'Team Not Found';
-    console.log(this.teamName);
+  },
+  watch: {
+    $route(newRoute) {
+      this.loadTeamMembers(newRoute);
+    }
   }
 };
 </script>
