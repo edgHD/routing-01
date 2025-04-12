@@ -12,7 +12,7 @@ const router = createRouter({
     { path: "/", redirect: "/teams" },
     { path: "/teams", component: TeamsList },
     { path: "/users", component: UsersList },
-    { path:"/teams/:teamId", component: TeamMembers }
+    { path:"/teams/:teamID", component: TeamMembers, props: true },
   ],
   linkActiveClass: "vue-active",
   linkExactActiveClass: "vue-exact-active"

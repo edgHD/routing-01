@@ -8,12 +8,12 @@
       :name="member.fullName"
       :role="member.role">
       </user-item>
-      <router-link to="/teams/t2">Back to Teams</router-link>
+      <router-link to="/teams">Back to Teams</router-link>
     </ul>
   </section>
   <section v-else>
     <h2>Team Not Found</h2>
-    <router-link to="/teams/t2">Back to Teams</router-link>
+    <router-link to="/teams">Back to Teams</router-link>
   </section>
 </template>
 
@@ -22,6 +22,7 @@ import UserItem from '../users/UserItem.vue';
 
 export default {
   inject: ['teams', 'users'],
+  props: ['teamID'],
   components: {
     UserItem
   },
@@ -32,12 +33,11 @@ export default {
     };
   },
   created() {
-    this.loadTeamMembers(this.$route);
+    this.loadTeamMembers(this.teamID);
   },
   methods: {
-    loadTeamMembers(route) {
-      const teamId = this.$route.params.teamId;
-      const selectedTeam = this.teams.find(team => team.id === teamId);
+    loadTeamMembers(teamID) {
+      const selectedTeam = this.teams.find(team => team.id === teamID);
       const members = selectedTeam ? selectedTeam.members : [];
       const selectedMembers = [];
       for (const member of members) {
@@ -51,8 +51,8 @@ export default {
     }
   },
   watch: {
-    $route(newRoute) {
-      this.loadTeamMembers(newRoute);
+    teamID(newID) {
+      this.loadTeamMembers(newID);
     }
   }
 };
