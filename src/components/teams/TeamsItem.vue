@@ -14,6 +14,7 @@ export default {
       return {
         name: 'team-members',
         params: { teamID: this.id },
+        query: { sort: 'asc' },
       };
     }
   },
