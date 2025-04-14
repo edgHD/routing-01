@@ -11,13 +11,24 @@ const router = createRouter({
   history: createWebHistory(),
   routes: [
     { path: "/", redirect: "/teams" },
-    { path: "/teams", component: TeamsList },
+    {
+      name: "teams",
+      path: "/teams",
+      component: TeamsList,
+      children: [
+        {
+          name: "team-members",
+          path: ":teamID",
+          component: TeamMembers,
+          props: true,
+        },
+      ],
+    },
     { path: "/users", component: UsersList },
-    { path:"/teams/:teamID", component: TeamMembers, props: true },
-    { path: "/:notFound(.*)", component: NotFound }
+    { path: "/:notFound(.*)", component: NotFound },
   ],
   linkActiveClass: "vue-active",
-  linkExactActiveClass: "vue-exact-active"
+  linkExactActiveClass: "vue-exact-active",
 });
 
 const app = createApp(App);
