@@ -2,11 +2,7 @@
   <section v-if="teamName !== 'Team Not Found'">
     <h2>{{ teamName }}</h2>
     <ul>
-      <user-item
-      v-for="member in members"
-      :key="member.id"
-      :name="member.fullName"
-      :role="member.role">
+      <user-item v-for="member in members" :key="member.id" :name="member.fullName" :role="member.role">
       </user-item>
       <router-link to="/teams">Back to Teams</router-link>
     </ul>
@@ -35,6 +31,10 @@ export default {
   created() {
     this.loadTeamMembers(this.teamID);
     console.log(this.$route.query.sort); // For debugging purposes
+  },
+  beforeRouteUpdate(to, from, next) {
+    console.log('Route is switching teams');
+    next();
   },
   methods: {
     loadTeamMembers(teamID) {

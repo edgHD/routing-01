@@ -26,19 +26,41 @@ const router = createRouter({
         },
       ],
     },
-    { path: "/users", components: { default: UsersList, footer: UsersFooter } },
+    {
+      path: "/users",
+      components: {
+        default: UsersList,
+        footer: UsersFooter,
+      },
+      beforeEnter(to, from, next) {
+        console.log("users beforeEnter");
+        console.log(to, from);
+        next();
+      }
+    },
     { path: "/:notFound(.*)", component: NotFound },
   ],
   linkActiveClass: "vue-active",
   linkExactActiveClass: "vue-exact-active",
-  scrollBehavior(to, from, savedPosition) {
+
+  scrollBehavior(_, _2, savedPosition) {
     if (savedPosition) {
       return savedPosition;
     } else {
       return { left: 0, top: 0 };
     }
   },
+});
 
+router.beforeEach((to, from, next) => {
+  console.log("Global beforeEach");
+  console.log(to, from);
+  // if (to.name === "team-members") {
+  //   next();
+  // } else {
+  //   next({name: "team-members", params: { teamID: "t2" }});
+  // }
+  next();
 });
 
 const app = createApp(App);

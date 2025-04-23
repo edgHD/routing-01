@@ -18,6 +18,14 @@ export default {
       alert('Confirmed!');
       this.$router.push('/teams');
     },
+    beforeRouteLeave(to, from, next) {
+      const answer = window.confirm('Are you sure you want to leave?');
+      if (answer) {
+        next();
+      } else {
+        next(false);
+      }
+    },
   },
 };
 </script>
