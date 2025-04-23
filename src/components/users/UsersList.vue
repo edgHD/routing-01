@@ -1,5 +1,6 @@
 <template>
   <button @click="confirmAction">Confirm</button>
+  <button @click="saveChanges">Save Changes</button>
   <ul>
     <user-item v-for="user in users" :key="user.id" :name="user.fullName" :role="user.role"></user-item>
   </ul>
@@ -12,20 +13,27 @@ export default {
   components: {
     UserItem,
   },
+  data() {
+    return {
+      changesSaved: false,
+    };
+  },
   inject: ['users'],
   methods: {
     confirmAction() {
       alert('Confirmed!');
       this.$router.push('/teams');
     },
-    beforeRouteLeave(to, from, next) {
-      const answer = window.confirm('Are you sure you want to leave?');
-      if (answer) {
-        next();
-      } else {
-        next(false);
-      }
+    saveChanges() {
+      this.changesSaved = true;
+      alert('Changes saved!');
     },
+  },
+  beforeRouteLeave(to, from, next) {
+    next(this.changesSaved || window.confirm('Are you sure you want to leave?'));
+  },
+  unmounted() {
+    console.log('Users List is unmounted');
   },
 };
 </script>
