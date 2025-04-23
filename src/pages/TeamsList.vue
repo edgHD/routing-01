@@ -1,24 +1,27 @@
 <template>
+  <!-- Nested router view for child routes -->
   <router-view></router-view>
+  
+  <!-- List of teams -->
   <ul>
     <teams-item
       v-for="team in teams"
       :key="team.id"
       :id="team.id"
       :name="team.name"
-      :member-count="team.members.length"
-    ></teams-item>
+      :member-count="team.members.length">
+    </teams-item>
   </ul>
 </template>
 
 <script>
-import TeamsItem from './TeamsItem.vue';
+import TeamsItem from '../components/teams/TeamsItem.vue';
 
 export default {
   components: {
-    TeamsItem,
+    TeamsItem, // Register the TeamsItem component
   },
-  inject: ['teams'],
+  inject: ['teams'], // Inject teams data from a parent component
 };
 </script>
 

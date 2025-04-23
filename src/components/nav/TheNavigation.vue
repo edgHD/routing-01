@@ -1,11 +1,14 @@
 <template>
+  <!-- Navigation bar -->
   <header>
     <nav>
       <ul>
         <li>
+          <!-- Link to the Teams page -->
           <router-link to="/teams">Teams</router-link>
         </li>
         <li>
+          <!-- Link to the Users page -->
           <router-link to="/users">Users</router-link>
         </li>
       </ul>

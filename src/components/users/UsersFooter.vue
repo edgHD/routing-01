@@ -1,3 +1,4 @@
 <template>
-    <h2>Users Footer</h2>
+  <!-- Footer for the Users page -->
+  <h2>Users Footer</h2>
 </template>

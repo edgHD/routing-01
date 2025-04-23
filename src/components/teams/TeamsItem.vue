@@ -1,4 +1,5 @@
 <template>
+  <!-- Display team details -->
   <li>
     <h3>{{ name }}</h3>
     <div class="team-members">{{ memberCount }} Members</div>
@@ -8,9 +9,10 @@
 
 <script>
 export default {
-  props: ['id', 'name', 'memberCount'],
+  props: ['id', 'name', 'memberCount'], // Accept id, name, and memberCount as props
   computed: {
     teamMembersLink() {
+      // Generate a link to the team members page with query parameters
       return {
         name: 'team-members',
         params: { teamID: this.id },

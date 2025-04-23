@@ -1,4 +1,5 @@
 <template>
+  <!-- Display user details -->
   <li>
     <h3>{{ name }}</h3>
     <div class="role" :class="roleClass">{{ role }}</div>
@@ -7,9 +8,10 @@
 
 <script>
 export default {
-  props: ['name', 'role'],
+  props: ['name', 'role'], // Accept name and role as props
   computed: {
     roleClass() {
+      // Dynamically assign a CSS class based on the user's role
       if (this.role === 'Engineer') {
         return 'role--engineer';
       }

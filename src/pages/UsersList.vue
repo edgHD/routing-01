@@ -1,38 +1,50 @@
 <template>
+  <!-- Buttons for user actions -->
   <button @click="confirmAction">Confirm</button>
   <button @click="saveChanges">Save Changes</button>
+  
+  <!-- List of users -->
   <ul>
-    <user-item v-for="user in users" :key="user.id" :name="user.fullName" :role="user.role"></user-item>
+    <user-item 
+      v-for="user in users" 
+      :key="user.id" 
+      :name="user.fullName" 
+      :role="user.role">
+    </user-item>
   </ul>
 </template>
 
 <script>
-import UserItem from './UserItem.vue';
+import UserItem from '../components/users/UserItem.vue';
 
 export default {
   components: {
-    UserItem,
+    UserItem, // Register the UserItem component
   },
   data() {
     return {
-      changesSaved: false,
+      changesSaved: false, // Track if changes are saved
     };
   },
-  inject: ['users'],
+  inject: ['users'], // Inject users data from a parent component
   methods: {
     confirmAction() {
+      // Confirm action and navigate to the teams page
       alert('Confirmed!');
       this.$router.push('/teams');
     },
     saveChanges() {
+      // Save changes and notify the user
       this.changesSaved = true;
       alert('Changes saved!');
     },
   },
   beforeRouteLeave(to, from, next) {
+    // Prompt the user before leaving the route if changes are unsaved
     next(this.changesSaved || window.confirm('Are you sure you want to leave?'));
   },
   unmounted() {
+    // Log when the component is unmounted
     console.log('Users List is unmounted');
   },
 };
